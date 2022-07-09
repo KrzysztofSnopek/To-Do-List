@@ -4,7 +4,9 @@ class NewToDoForm extends Component {
     render () {
         return (<form>
             <label>
-                What do you have to do?
+                <p>
+                    What do you have to do?
+                </p>
                 <input 
                 type="text"
                 placeholder="Add a new to do"
