@@ -4,22 +4,24 @@ class NewToDoForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: [{activity: ''}]
+            value: '',
+            AddToDo: '',
+            todos: [{activity: 'Brush your teeth after every meal'}]
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    }
 
     handleSubmit(e){
         e.preventDefault();
+        const newToDo = {activity: this.state.AddToDo}
         this.setState({todos: [...this.state.todos, newToDo]});
         this.setState({activity: ''});
     }
 
     handleChange(e){
         this.setState({
-            [e.target.name]: e.target.value
+            value: e.target.value
         });
     }
 
@@ -33,7 +35,7 @@ class NewToDoForm extends Component {
               </label>
               <input
                    type="text"
-                   value={this.state.activity}
+                   value={this.state.value}
                    onChange={this.handleChange}
                    name="activity"
                    htmlFor='task'
