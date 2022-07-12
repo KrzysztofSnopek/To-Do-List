@@ -9,6 +9,13 @@ export function NewToDoForm(): JSX.Element {
         setActivity('');        
     }
 
+    const handleRemove = (index) => {
+        setTodos([
+            ...todos.slice(0, index),
+            ...todos.slice(index + 1)
+        ]);
+    }
+
     return(
         <div>
             <form>
@@ -33,6 +40,11 @@ export function NewToDoForm(): JSX.Element {
                 (todo, index) => (
                     <li key={index}>
                         {todo}
+                        <button
+                            onClick={() => handleRemove(index)}
+                        >
+                            X
+                        </button>
                     </li>
                 )
             )}
