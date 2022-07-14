@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 export function NewToDoForm(): JSX.Element {
-    const [todos, setTodos] = useState<string[]>(['todo1']);
-    const [activity, setActivity] = useState<string>('');
+    const [todos, setTodos] = useState<string[]>(["todo1"]);
+    const [activity, setActivity] = useState<string>("");
 
     useEffect(() => {
        const data = window.localStorage.getItem("my-todo-list");
-            setTodos(JSON.parse)
+       const dataString: string = data || '[]';
+       setTodos(JSON.parse(dataString));
     }, []);
     
     useEffect(() => {
@@ -15,7 +16,7 @@ export function NewToDoForm(): JSX.Element {
 
     const handleSubmit = (activity: string) => {
         setTodos([...todos, activity]);
-        setActivity('');        
+        setActivity("");        
     }
 
     const handleRemove = (index) => {
@@ -29,7 +30,7 @@ export function NewToDoForm(): JSX.Element {
         <div>
             <form>
             <input
-                type='text'
+                type="text"
                 onChange={e => setActivity(e.target.value)}
                 value={activity}
             />
