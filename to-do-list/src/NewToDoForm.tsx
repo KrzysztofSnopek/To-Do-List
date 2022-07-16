@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { StyledLayout } from "./styles/Layout.styled";
+import { TiDeleteOutline } from 'react-icons/ti';
 
 export function NewToDoForm(): JSX.Element {
     const [todos, setTodos] = useState<string[]>(["todo1"]);
@@ -27,14 +29,16 @@ export function NewToDoForm(): JSX.Element {
     }
 
     return(
-        <div>
+        <StyledLayout>
             <form>
-            <input
+            <input className="form-input"
                 type="text"
                 onChange={e => setActivity(e.target.value)}
                 value={activity}
+                placeholder= "Add your new todo"
+                maxLength={40}
             />
-            <button
+            <button className="form-button"
                 onClick={() =>
                     handleSubmit(activity)
                 }
@@ -48,18 +52,22 @@ export function NewToDoForm(): JSX.Element {
             <ul>
             {todos.map(
                 (todo, index) => (
-                    <li key={index}>
+                    <div key={index}>
+                    <li>
+                        <p>
                         {todo}
-                        <button
-                            onClick={() => handleRemove(index)}
-                        >
-                            x
-                        </button>
-                    </li>
+                        </p>
+                    </li>                        
+                    <button className="form-button"
+                    onClick={() => handleRemove(index)}
+                    >
+                    <TiDeleteOutline />
+                    </button>
+                    </div>
                 )
             )}
             </ul>
-        </div>
+        </StyledLayout>
     )
 }
 

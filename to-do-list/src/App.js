@@ -4,10 +4,12 @@ import Home from './Home';
 import Completed from './Completed';
 import Error from './Error';
 import SharedLayout from './SharedLayout';
-import './App.css';
+import {GlobalStyle} from './styles/Globalstyle';
 
 function App() {
   return (
+      <div className='container box'>
+      <GlobalStyle />
        <Routes>
          <Route path='/' element={<SharedLayout />}>
          <Route index element={<Home />} />
@@ -15,6 +17,7 @@ function App() {
          <Route path='*' element={<Error />} />
          </Route>
        </Routes>
+      </div>
   );
 }
 
