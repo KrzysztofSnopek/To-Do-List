@@ -20,4 +20,10 @@ export const GlobalStyle = createGlobalStyle`
         flex-basis: 100%;
         min-width: 300px;
     }
+
+    NavButton {
+        :active {
+            color: white;
+        }
+    }
 `

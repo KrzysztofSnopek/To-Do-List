@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyledLayout } from "./styles/Layout.styled";
+import { StyledForm} from "./styles/Form.styled";
+import { StyledList } from "./styles/List.styled";
+import { StyledPagination } from "./styles/Pagination.styled";
+import { StyledHome } from "./styles/Home.styled";
 import { TiDeleteOutline } from 'react-icons/ti';
 import ReactPaginate from "react-paginate";
 
 export function NewToDoForm(): JSX.Element {
     const cachedTodoList = JSON.parse(window.localStorage.getItem("my-todo-list") || "[]");
     const [todos, setTodos] = useState<string[]>([cachedTodoList || []]);
+    const [completedTodos, setCompletedTodos] = useState<string[]>([]);
     const [activity, setActivity] = useState<string>("");
     const inputRef = useRef<HTMLInputElement>(null);
     const [pageNumber, setPageNumber] = useState<number>(0);
-    const todosPerPage = 5;
+    const todosPerPage = 6;
     const pagesVisited = pageNumber * todosPerPage;
 
     useEffect(() => {
@@ -21,8 +25,10 @@ export function NewToDoForm(): JSX.Element {
     });
 
     const handleSubmit = (activity: string) => {
+        if (activity.length >= 1) {
         setTodos([...todos, activity]);
-        setActivity("");        
+        setActivity("");  
+        }      
     }
 
     const handleRemove = (index: number) => {
@@ -30,6 +36,12 @@ export function NewToDoForm(): JSX.Element {
             ...todos.slice(0, index),
             ...todos.slice(index + 1)
         ]);
+        const indexTodo = [...todos.slice(index, index + 1)];
+        setCompletedTodos([
+            ...completedTodos, ...indexTodo
+        ]);
+        console.log(indexTodo);
+        console.log(setCompletedTodos);
     }
 
     const focusInput = () => {
@@ -47,7 +59,7 @@ export function NewToDoForm(): JSX.Element {
                 {todo}
                 </p>
             </li>                        
-            <button className="form-button"
+            <button className="delete-button"
             onClick={() => handleRemove(index)}
             >
             <TiDeleteOutline />
@@ -58,19 +70,20 @@ export function NewToDoForm(): JSX.Element {
 
     const pageCount = Math.ceil(todos.length / todosPerPage);
 
-    const changePage = ({ selected }) => {
+    const changePage = ( {selected} ) => {
         setPageNumber(selected);
     };
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
             handleSubmit(activity);
+            focusInput();
         }
     };
 
     return(
-        <StyledLayout>
-            <form>
+        <StyledHome>
+            <StyledForm>
             <input className="form-input"
                 ref={inputRef}
                 type="text"
@@ -78,9 +91,8 @@ export function NewToDoForm(): JSX.Element {
                 value={activity}
                 placeholder= "Add your new todo"
                 maxLength={40}
-                onKeyPress={(e) => {
-                    handleKeyPress(e);
-                    focusInput();
+                onKeyPress={(event) => {
+                    handleKeyPress(event);
                 }
                 }
             />
@@ -95,20 +107,25 @@ export function NewToDoForm(): JSX.Element {
                 type="button"
                 id="task"
             >
-                Add new task
+                Add task
             </button>
-            </form>
-            <ul>
-                {displayTodos}
-
-            </ul>
+            </StyledForm>
+            <StyledList>
+                {displayTodos}  
+            </StyledList> 
+            <StyledPagination>       
             <ReactPaginate
                 pageCount={pageCount}
                 onPageChange={changePage}
                 previousLabel={"Previous"}
                 nextLabel={"Next"}
+                containerClassName={"paginationButton"}
+                nextLinkClassName={"nextButton"}
+                previousLinkClassName={"previosButton"}
+                activeClassName={"paginationActive"}
             />
-        </StyledLayout>
+            </StyledPagination>  
+        </StyledHome>
     )
 }
 

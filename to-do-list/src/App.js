@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Home from './Home';
-import Completed from './Completed';
-import Error from './Error';
+import Home from './Home.tsx';
+import Completed from './Completed.tsx';
+import Error from './Error.tsx';
 import SharedLayout from './SharedLayout';
 import {GlobalStyle} from './styles/Globalstyle';
 
@@ -12,7 +12,10 @@ function App() {
       <GlobalStyle />
        <Routes>
          <Route path='/' element={<SharedLayout />}>
-         <Route index element={<Home />} />
+         <Route 
+            index 
+            element={<Home />} 
+          />
          <Route path='completed' element={<Completed />} />
          <Route path='*' element={<Error />} />
          </Route>
@@ -20,7 +23,5 @@ function App() {
       </div>
   );
 }
-
-
 
 export default App;
