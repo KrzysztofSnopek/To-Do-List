@@ -5,21 +5,24 @@ import Completed from './Completed.tsx';
 import Error from './Error.tsx';
 import SharedLayout from './SharedLayout';
 import {GlobalStyle} from './styles/Globalstyle';
+import { FormProvider } from './FormContext';
 
 function App() {
   return (
       <div className='container box'>
-      <GlobalStyle />
-       <Routes>
-         <Route path='/' element={<SharedLayout />}>
-         <Route 
-            index 
-            element={<Home />} 
-          />
-         <Route path='completed' element={<Completed />} />
-         <Route path='*' element={<Error />} />
-         </Route>
-       </Routes>
+        <FormProvider>
+          <GlobalStyle />
+           <Routes>
+             <Route path='/' element={<SharedLayout />}>
+             <Route 
+                index 
+                element={<Home />} 
+              />
+             <Route path='completed' element={<Completed />} />
+             <Route path='*' element={<Error />} />
+             </Route>
+           </Routes>
+        </FormProvider>
       </div>
   );
 }

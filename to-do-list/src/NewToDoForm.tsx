@@ -9,7 +9,8 @@ import ReactPaginate from "react-paginate";
 export function NewToDoForm(): JSX.Element {
     const cachedTodoList = JSON.parse(window.localStorage.getItem("my-todo-list") || "[]");
     const [todos, setTodos] = useState<string[]>([cachedTodoList || []]);
-    const [completedTodos, setCompletedTodos] = useState<string[]>([]);
+    const cachedCompletedTodoList = JSON.parse(window.localStorage.getItem("completed-todo-list") || "[]");
+    const [completedTodos, setCompletedTodos] = useState<string[]>(cachedCompletedTodoList || []);
     const [activity, setActivity] = useState<string>("");
     const inputRef = useRef<HTMLInputElement>(null);
     const [pageNumber, setPageNumber] = useState<number>(0);
@@ -18,10 +19,12 @@ export function NewToDoForm(): JSX.Element {
 
     useEffect(() => {
        setTodos(cachedTodoList);
+       setCompletedTodos(cachedCompletedTodoList);
     }, []);
     
     useEffect(() => {
         window.localStorage.setItem("my-todo-list", JSON.stringify(todos));
+        window.localStorage.setItem("completed-todo-list", JSON.stringify(completedTodos));
     });
 
     const handleSubmit = (activity: string) => {
@@ -37,11 +40,9 @@ export function NewToDoForm(): JSX.Element {
             ...todos.slice(index + 1)
         ]);
         const indexTodo = [...todos.slice(index, index + 1)];
-        setCompletedTodos([
+        setCompletedTodos( completedTodos => [
             ...completedTodos, ...indexTodo
         ]);
-        console.log(indexTodo);
-        console.log(setCompletedTodos);
     }
 
     const focusInput = () => {

@@ -1,13 +1,27 @@
 import React from "react";
+import FormContext from "./FormContext";
+import { useContext } from "react";
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
-import { NewToDoForm } from './NewToDoForm.tsx';
+
 
 function Completed(): JSX.Element {
-    
+    const { completedTodos } = useContext(FormContext);
+
 
     return (
-        <NewToDoForm />
+        <h1>
+            <ul>
+                {    
+                completedTodos.map(
+                    (completedTodo: string, index: number) => {
+                        <li key={index}>
+                            {completedTodo}
+                        </li>
+                    }
+                )}
+            </ul>
+        </h1>
     )
 }
 
