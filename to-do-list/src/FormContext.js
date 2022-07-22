@@ -3,7 +3,8 @@ import { createContext, useState } from "react";
 export const FormContext = createContext();
 
 export function FormProvider( {children} ) {
-    const [completedTodos, setCompletedTodos] = useState([]);
+    const cachedCompletedTodoList = JSON.parse(window.localStorage.getItem("completed-todo-list") || "[]");
+    const [completedTodos, setCompletedTodos] = useState(cachedCompletedTodoList || []);
     // const [todos, setTodos] = useState([]);
 
     // const addToCompleted = (index) => {
@@ -15,7 +16,8 @@ export function FormProvider( {children} ) {
 
     const value = {
         completedTodos,
-        setCompletedTodos
+        setCompletedTodos,
+        cachedCompletedTodoList
     };
 
     return(
