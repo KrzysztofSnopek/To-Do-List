@@ -15,10 +15,11 @@ function Completed(): JSX.Element {
                 {    
                 completedTodos.map(
                     (completedTodo: string, index: number) => {
+                        return(
                         <li key={index}>
                             {completedTodo}
                         </li>
-                    }
+                )}
                 )}
             </ul>
         </h1>
