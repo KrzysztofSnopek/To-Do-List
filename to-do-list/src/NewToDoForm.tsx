@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyledForm} from "./styles/Form.styled";
 import { StyledList } from "./styles/List.styled";
 import { StyledPagination } from "./styles/Pagination.styled";
@@ -51,31 +51,15 @@ export function NewToDoForm(): JSX.Element {
         }
     }
 
-    const displayTodos = todos.slice(pagesVisited, pagesVisited + todosPerPage).map(
-        (todo, index) => {
-            return (
-            <div key={index}>
-            <li>
-                <p>
-                {todo}
-                </p>
-            </li>                        
-            <button className="delete-button"
-            onClick={() => handleRemove(index)}
-            >
-            <TiDeleteOutline />
-            </button>
-            </div>
-        )}
-    );
-
     const pageCount = Math.ceil(todos.length / todosPerPage);
 
+    /* eslint-disable @typescript-eslint/ban-ts-comment */
+    // @ts-ignore
     const changePage = ( {selected} ) => {
         setPageNumber(selected);
     };
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = (event: any) => {
         if (event.key === "Enter") {
             handleSubmit(activity);
             focusInput();
@@ -112,7 +96,25 @@ export function NewToDoForm(): JSX.Element {
             </button>
             </StyledForm>
             <StyledList>
-                {displayTodos}  
+                {
+                    todos.slice(pagesVisited, pagesVisited + todosPerPage).map(
+                        (todo, index) => {
+                            return (
+                            <div key={index}>
+                            <li>
+                                <p>
+                                {todo}
+                                </p>
+                            </li>                        
+                            <button className="delete-button"
+                            onClick={() => handleRemove(index)}
+                            >
+                            <TiDeleteOutline />
+                            </button>
+                            </div>
+                        )}
+                    )
+                }  
             </StyledList> 
             <StyledPagination>       
             <ReactPaginate

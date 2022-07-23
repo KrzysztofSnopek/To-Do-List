@@ -1,7 +1,4 @@
-import React from "react";
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-import { NewToDoForm } from "./NewToDoForm.tsx";
+import { NewToDoForm } from "./NewToDoForm";
 
 function Home(): JSX.Element {
         return (

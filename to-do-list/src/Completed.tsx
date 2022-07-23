@@ -1,13 +1,8 @@
-import React from "react";
-import FormContext from "./FormContext";
-import { useContext } from "react";
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
+import { useFormContext } from "./FormContext";
 
 
-function Completed(): JSX.Element {
-    const { completedTodos } = useContext(FormContext);
-
+export function Completed(): JSX.Element {
+    const { completedTodos } = useFormContext();
 
     return (
         <h1>
@@ -25,6 +20,3 @@ function Completed(): JSX.Element {
         </h1>
     )
 }
-
-
-export default Completed;

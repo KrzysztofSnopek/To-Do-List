@@ -1,8 +1,7 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Home from './Home.tsx';
-import Completed from './Completed.tsx';
-import Error from './Error.tsx';
+import Home from './Home';
+import { Completed } from './Completed';
+import Error from './Error';
 import SharedLayout from './SharedLayout';
 import {GlobalStyle} from './styles/Globalstyle';
 import { FormProvider } from './FormContext';
