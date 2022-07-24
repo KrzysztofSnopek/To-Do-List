@@ -11,8 +11,8 @@ export const StyledPagination = styled.div`
             }
 
         .paginationButton a {
-            padding: 10px;
-            margin: 8px;
+            padding: 6px;
+            margin: 4px;
             border-radius: 5px;
             border: 1px solid #3d78bf;
             color: #3d78bf;

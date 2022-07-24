@@ -1,28 +1,78 @@
 import { useFormContext } from "./FormContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { StyledList } from "./styles/List.styled";
+import { StyledHome } from "./styles/Home.styled";
+import { StyledCompletedHeader } from "./styles/CompletedHeader.styled";
+import { StyledPagination } from "./styles/Pagination.styled";
+import ReactPaginate from "react-paginate";
+import { TiDeleteOutline } from 'react-icons/ti';
 
 
 export function Completed(): JSX.Element {
-    const { setCompletedTodos, cachedCompletedTodoList } = useFormContext();
+    const { completedTodos, setCompletedTodos, cachedCompletedTodoList } = useFormContext();
+
+    const [pageNumber, setPageNumber] = useState<number>(0);
+    const completedTodosPerPage = 6;
+    const pagesVisited = pageNumber * completedTodosPerPage;
+    const pageCount = Math.ceil(cachedCompletedTodoList.length / completedTodosPerPage);
+    // const [cTodos, setCTodos] = useState<string[]>();
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+    // @ts-ignore
+    const changePage = ( {selected} ) => {
+        setPageNumber(selected);
+    };
     
     useEffect(() => {
-       setCompletedTodos({...cachedCompletedTodoList})
+       setCompletedTodos([...cachedCompletedTodoList])
      }, []);
 
+     const handleRemoveCompleted = (index: number) => {
+        // setCompletedTodos([
+            ...completedTodos.slice(0, index),
+            ...completedTodos.slice(index + 1)
+        ]);
+        console.log(completedTodos);
+    }
+
     return (
-        <h1>
-            <ul>
+        <StyledHome>
+            <StyledCompletedHeader>
+                The list of last 30 completed todos!
+            </StyledCompletedHeader>
+            <StyledList>
                 {    
-                cachedCompletedTodoList.map(
+                cachedCompletedTodoList.slice(pagesVisited, pagesVisited + completedTodosPerPage).map(
                     (completedTodo: string, index: number) => {
                         return(
-                        <li key={index}>
-                            {completedTodo}
-                        </li>
-                        
+                            <div key={index}>
+                                <li>
+                                    {completedTodo}
+                                </li>
+                                <button 
+                                    className="delete-button"
+                                    onClick={() => handleRemoveCompleted(index)}
+                                >
+                                    <TiDeleteOutline />
+                                </button>
+                            </div>                        
                 )}
                 )}
-            </ul>
-        </h1>
+            </StyledList>
+            <StyledPagination>
+            <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                previousLabel={"Previous"}
+                nextLabel={"Next"}
+                containerClassName={"paginationButton"}
+                nextLinkClassName={"nextButton"}
+                previousLinkClassName={"previosButton"}
+                activeClassName={"paginationActive"}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                breakLabel={'...'}
+            />
+            </StyledPagination>  
+        </StyledHome>
     )
 }

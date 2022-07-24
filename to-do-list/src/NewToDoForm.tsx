@@ -19,7 +19,7 @@ export function NewToDoForm(): JSX.Element {
 
     useEffect(() => {
        setTodos(cachedTodoList);
-       setCompletedTodos(cachedCompletedTodoList);
+       setCompletedTodos(cachedCompletedTodoList); 
     }, []);
     
     useEffect(() => {
@@ -126,6 +126,9 @@ export function NewToDoForm(): JSX.Element {
                 nextLinkClassName={"nextButton"}
                 previousLinkClassName={"previosButton"}
                 activeClassName={"paginationActive"}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                breakLabel={'...'}
             />
             </StyledPagination>  
         </StyledHome>
