@@ -1,19 +1,25 @@
 import { useFormContext } from "./FormContext";
+import { useEffect } from "react";
 
 
 export function Completed(): JSX.Element {
-    const { completedTodos } = useFormContext();
+    const { setCompletedTodos, cachedCompletedTodoList } = useFormContext();
+    
+    useEffect(() => {
+       setCompletedTodos({...cachedCompletedTodoList})
+     }, []);
 
     return (
         <h1>
             <ul>
                 {    
-                completedTodos.map(
+                cachedCompletedTodoList.map(
                     (completedTodo: string, index: number) => {
                         return(
                         <li key={index}>
                             {completedTodo}
                         </li>
+                        
                 )}
                 )}
             </ul>
