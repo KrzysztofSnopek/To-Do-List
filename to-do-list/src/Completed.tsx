@@ -69,7 +69,6 @@ export function Completed(): JSX.Element {
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
                 breakLabel={'...'}
-                renderOnZeroPageCount={() => null}
             />
             </StyledPagination>  
         </StyledHome>
