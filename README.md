@@ -1,5 +1,5 @@
-# Project_1
-ToDoList
+# To Do List
+
 
 npm install create-react-app to-do-list
 npm install styled-components
