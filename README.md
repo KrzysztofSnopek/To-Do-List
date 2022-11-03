@@ -15,7 +15,7 @@ To run this project, install it locally using npm:
 
 ```
 
-$ cd ../Project_1-main\to-do-list
+$ cd ../Project_1/to-do-list
 $ npm install
 $ npm start
 
